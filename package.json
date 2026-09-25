@@ -7,6 +7,7 @@
     "dev": "npm run dev --workspace @mappedfair/web",
     "lint": "npm run lint --workspace @mappedfair/web",
     "test": "npm run test --workspace @mappedfair/web",
+    "test:e2e": "npm run test:e2e --workspace @mappedfair/web",
     "typecheck": "npm run typecheck --workspace @mappedfair/web",
     "build": "npm run build --workspace @mappedfair/web"
   },

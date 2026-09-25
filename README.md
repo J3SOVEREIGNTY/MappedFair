@@ -24,6 +24,16 @@ npm run typecheck
 npm run build
 ```
 
+To exercise the production app in Chromium, install the browser once and run the offline acceptance tests:
+
+```sh
+npx playwright install chromium
+npm run build
+npm run test:e2e
+```
+
+The browser tests verify a saved plan after an offline reload, a later reconnect, and the storage-denied state. CI installs Chromium and runs them on each pull request.
+
 ## Architecture and delivery
 
 - [Architecture baseline](docs/architecture/BASELINE.md)
