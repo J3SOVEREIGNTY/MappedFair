@@ -15,8 +15,8 @@ Status: proposed and staged for review.
 
 - React + TypeScript + Vite npm workspace, Tailwind plugin, and clean app composition shell.
 - Feature/domain/application/infrastructure boundaries documented in code.
-- CI performs dependency install, lint, typecheck, and production build.
-- Add behavioral tests with each first domain slice; avoid tests that only mirror scaffolding.
+- CI performs dependency install, lint, an accessible app-shell smoke test, typecheck, and production build.
+- Add domain and integration behavior tests with each feature slice; avoid tests that only mirror implementation details.
 
 **Exit:** clean install and all CI checks pass from a fresh checkout; no provider credentials required.
 

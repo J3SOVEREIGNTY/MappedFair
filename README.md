@@ -19,6 +19,7 @@ npm run dev
 
 ```sh
 npm run lint
+npm test
 npm run typecheck
 npm run build
 ```
