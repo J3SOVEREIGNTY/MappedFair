@@ -35,3 +35,7 @@ jobs:
         run: npm run typecheck
       - name: Build
         run: npm run build
+      - name: Install Chromium for offline acceptance tests
+        run: npx playwright install --with-deps chromium
+      - name: Offline browser acceptance
+        run: npm run test:e2e
