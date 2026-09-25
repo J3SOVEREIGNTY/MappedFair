@@ -48,10 +48,15 @@ function App() {
     setError('')
     const currentRevision = ++revision.current
     saveQueue.current = saveQueue.current.catch(() => {}).then(() => store.save(next)).then(() => {
-      if (currentRevision === revision.current) setSaving(false)
+      if (currentRevision === revision.current) {
+        setSaving(false)
+        setError('')
+      }
     }).catch(() => {
-      setSaving(false)
-      setError('Changes could not be saved locally. Keep this page open and try editing again.')
+      if (currentRevision === revision.current) {
+        setSaving(false)
+        setError('Changes could not be saved locally. Keep this page open and try editing again.')
+      }
     })
   }
 
