@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, feat/mappedfair-foundation]
   push:
     branches: [main]
 

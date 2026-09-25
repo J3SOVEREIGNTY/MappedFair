@@ -20,7 +20,7 @@ Checked-in feature folders are organizational boundaries, not promises that ever
 2. Application use cases depend on domain rules and declared ports.
 3. Domain code has no browser, framework, network, storage, or vendor dependencies.
 4. Infrastructure adapters implement ports and translate external formats at the boundary.
-5. Fair-data records carry source, license, version, and last-verified metadata before they can drive routing or safety-relevant displays.
+5. Fair-data records carry source, reuse basis, snapshot version, and observation date. Routing or safety-relevant displays additionally require validated data and appropriate rights for that use; the first factual sample cannot support such claims.
 
 ## Offline and synchronization boundary
 
