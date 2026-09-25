@@ -17,6 +17,9 @@ function App() {
   const planRef = useRef(plan)
   const saveQueue = useRef<Promise<void>>(Promise.resolve())
   const revision = useRef(0)
+  const pendingFocus = useRef<string | null>(null)
+  const removeButtons = useRef(new Map<string, HTMLButtonElement>())
+  const planTitle = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
     let active = true
@@ -39,6 +42,14 @@ function App() {
     }
     return () => { active = false }
   }, [])
+
+  useEffect(() => {
+    const target = pendingFocus.current
+    if (target === null) return
+    if (target === 'empty') planTitle.current?.focus()
+    else removeButtons.current.get(target)?.focus()
+    pendingFocus.current = null
+  }, [plan])
 
   function change(next: Itinerary) {
     if (!ready || next === planRef.current) return
@@ -101,7 +112,7 @@ function App() {
         </section>
 
         <aside className="plan" aria-labelledby="plan-title">
-          <div className="eyebrow">02 / MAKE IT YOURS</div><h2 id="plan-title">Your day, <em>your order.</em></h2>
+          <div className="eyebrow">02 / MAKE IT YOURS</div><h2 id="plan-title" ref={planTitle} tabIndex={-1}>Your day, <em>your order.</em></h2>
           <p className="plan-intro">A simple list of stops. Directions and estimated travel times are not available yet.</p>
           {!ready && !error && <p role="status">Opening your saved plan…</p>}
           {error && <p className="error" role="alert">{error}</p>}
@@ -111,7 +122,10 @@ function App() {
             const venue = venueById.get(stop.venueId)
             if (!venue) return null
             return <li key={stop.venueId} className="stop">
-              <div className="stop-top"><span className="stop-index">{String(index + 1).padStart(2, '0')}</span><div className="stop-name"><strong>{venue.name}</strong><small>{venue.address}</small></div><button type="button" className="remove" aria-label={`Remove ${venue.name}`} onClick={() => change(removeStop(planRef.current, venue.id))}>×</button></div>
+              <div className="stop-top"><span className="stop-index">{String(index + 1).padStart(2, '0')}</span><div className="stop-name"><strong>{venue.name}</strong><small>{venue.address}</small></div><button type="button" className="remove" aria-label={`Remove ${venue.name}`} ref={(node) => { if (node) removeButtons.current.set(venue.id, node); else removeButtons.current.delete(venue.id) }} onClick={(event) => {
+                if (event.detail === 0) pendingFocus.current = (planRef.current.stops[index + 1] ?? planRef.current.stops[index - 1])?.venueId ?? 'empty'
+                change(removeStop(planRef.current, venue.id))
+              }}>×</button></div>
               <label className="note-label" htmlFor={`note-${venue.id}`}>Your note</label><input id={`note-${venue.id}`} maxLength={300} placeholder="A reminder for this stop…" value={stop.note} onChange={(event) => change(updateNote(planRef.current, venue.id, event.target.value))} />
               <div className="reorder"><button type="button" disabled={index === 0} onClick={() => change(moveStop(planRef.current, index, -1))} aria-label={`Move ${venue.name} earlier`}>↑ Earlier</button><button type="button" disabled={index === plan.stops.length - 1} onClick={() => change(moveStop(planRef.current, index, 1))} aria-label={`Move ${venue.name} later`}>↓ Later</button></div>
             </li>

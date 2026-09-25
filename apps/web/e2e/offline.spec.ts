@@ -47,3 +47,16 @@ test('storage denial is visible and does not claim the plan was saved', async ({
   await expect(page.getByText('Saved on this device', { exact: true })).toHaveCount(0)
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
 })
+
+test('keyboard removal moves focus to the next stop and then the empty plan heading', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Add Grandstand to plan' }).click()
+  await page.getByRole('button', { name: 'Add Food Building to plan' }).click()
+
+  await page.getByRole('button', { name: 'Remove Grandstand' }).press('Enter')
+  await expect(page.getByRole('button', { name: 'Remove Food Building' })).toBeFocused()
+
+  await page.getByRole('button', { name: 'Remove Food Building' }).press('Enter')
+  await expect(page.getByRole('heading', { name: 'Your day, your order.' })).toBeFocused()
+  await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible()
+})
