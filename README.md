@@ -4,7 +4,7 @@ MappedFair is planned as a mobile-first Minnesota State Fair companion that rema
 
 ## Project status
 
-The repository is at its foundation stage. The current app is a minimal React/Vite shell; product workflows, venue data, remote sync, BLE, AI, and payment behavior are not implemented.
+This branch includes the first offline venue and itinerary slice: a six-place factual sample with source and observation date, local plan and notes in IndexedDB, and a production service worker that precaches the app for repeat offline visits. Browse once online before relying on offline access. This is an independent sample, not a live Fair directory. Map, route, remote sync, BLE, AI, and payments are not implemented.
 
 ## Develop
 
@@ -30,4 +30,4 @@ npm run build
 - [Phased build plan](docs/BUILD_PLAN.md)
 - [ADR-001: client stack and offline boundary](docs/decisions/ADR-001-client-and-offline-boundary.md)
 
-The architecture and product scope are proposals for review. Data sources, licensing, map provider, MVP limits, and Firebase adoption remain open decisions.
+ADR-001 records the verified source and licensing boundary. Broader directory/map rights, seasonal refresh, installation support, and Firebase adoption remain open decisions.

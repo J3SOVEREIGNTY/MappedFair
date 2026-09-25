@@ -1,6 +1,6 @@
 # MappedFair build plan v0.1.0
 
-Status: proposed and staged for review.
+Status: MVP scope and data-source disposition reviewed 2026-09-25; owner ratification pending.
 
 ## Phase 0 — Scope and data authority
 
@@ -22,10 +22,10 @@ Status: proposed and staged for review.
 
 ## Phase 2 — Offline data and itinerary slice
 
-- Introduce a small, licensed venue dataset with provenance and freshness metadata.
+- Introduce a small, independently curated factual venue sample with provenance and observation date. Require explicit licensing or permission for wider imports.
 - Define local entity schemas and IndexedDB adapter behind ports.
 - Implement venue browsing plus itinerary and notes with local persistence.
-- Test persistence, reload recovery, empty/error states, and export/import if accepted.
+- Precache the shell and bundled sample for repeat offline visits; test persistence, reload recovery, offline reload, empty/error states. Export/import is a separate decision.
 
 **Exit:** user can complete the defined itinerary flow offline and recover locally saved state.
 
@@ -59,7 +59,7 @@ BLE relay and AI concierge remain separate gated projects. Each requires a threa
 
 ## Current sequence
 
-1. Review this plan and ADR-001.
-2. Ratify data source, privacy, accessibility, and MVP decisions.
-3. Merge the foundation PR after checks and human review.
-4. Open a narrowly scoped Phase 2 issue with data and offline acceptance criteria.
+1. Review and ratify the bounded MVP and the map/directory licensing gate in ADR-001.
+2. Merge the foundation PR after checks and human review; review the stacked offline venue/itinerary PR against it.
+3. Assign a seasonal data verification owner before using this sample for an event.
+4. Decide future map licensing, accessibility and routing evidence, export, and any group/sync contract in separate milestones.
